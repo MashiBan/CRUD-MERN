@@ -75,7 +75,7 @@ export default function PostPage() {
                 {userInfo.id === postInfo.author._id && (
                     <div className="edit">
                        <button className="edit-btn">
-                           <Link className="btn" to={`/edit/${postInfo._id}`}>Edit this post</Link>
+                           <Link className="edit-btn" to={`/edit/${postInfo._id}`}>Edit this post</Link>
                        </button>
                        <button className="delete-btn" onClick={handleDelete}>Delete</button>
                     </div>

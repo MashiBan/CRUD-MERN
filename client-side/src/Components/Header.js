@@ -28,7 +28,7 @@ export default function Header(){
     const username = userInfo?.username;
     return(
         <header>
-        <Link to="/" className="logo"> My App</Link>
+        <Link to="/" className="logo">WhisperTales</Link>
         <nav>
           {(username && (
             <>

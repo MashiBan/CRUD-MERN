@@ -8,6 +8,7 @@ import { UserContextProvider } from './Context/userContext';
 import CreatePost from './pages/CreatePost';
 import PostPage from './pages/PostPage';
 import EditPost from './pages/EditPost';
+import Footer from './Components/Footer';
 
 function App() {
   return (

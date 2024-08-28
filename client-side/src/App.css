@@ -1,5 +1,6 @@
 *{
     box-sizing: border-box;
+    background-color: antiquewhite;
 }
 body{
     color: #222;
@@ -12,7 +13,7 @@ img{
 
 main{
     padding: 10px;
-    max-width: 900px;
+    max-width: 700px;
     margin: 0 auto;
 }
 
@@ -20,7 +21,15 @@ header{
     display: flex;
     justify-content: space-between;
     margin-top: 20px;
+   
 }
+
+footer p{
+    text-align: center;
+    position:relative;
+    font-family:cursive;
+}
+
 
 header a{
     color: inherit;
@@ -44,9 +53,11 @@ div.post{
     /* grid-template-columns: 0.9fr 1.1fr; */
     gap: 16px;
     margin-bottom: 30px;
+    border-bottom: 2px solid black;
+    padding: 2px;
 }
 
-@media screen and (min-width: 600px) {
+@media screen and (min-width: 786px) {
         div.post{
             grid-template-columns: 0.9fr 1.1fr;
 
@@ -78,16 +89,19 @@ div.post p.info a.author{
 
 .form p{
     text-align: center;
-    font-weight: 400;
+    font-weight: 700;
+
 }
 
 form.login, form.register{
     max-width: 400px;
     margin: 0 auto;
-    border: 2px solid #888;
-    background-color: rgb(255, 251, 234);
+    border: 2px solid #0a0a0a;
+    /* background-color: rgb(255, 251, 234); */
     padding: 35px;
     padding-top: 10px;
+    box-shadow: 10px 10px 0px black;
+    border-radius: 2px;
 }
 
 input{
@@ -96,15 +110,15 @@ input{
     width: 100%;
     padding: 5px;
     border: 0;
-    background-color: #eee;
-    border: 1px solid #ddd;
+    background-color: #f3e2d2;
+    border: 1px solid #787474;
 }
 
 button{
     width: 100%;
-    margin-top: 5px;
+    margin-top: 15px;
     display: block;
-    background-color: #555;
+    background-color: #242424;
     border: 0;
     color: #fff;
     padding: 5px;
@@ -115,9 +129,6 @@ form h2{
 }
 
 .post-page{
-    /* padding: 10px; */
-    /* margin-top: 3rem; */
-    /* background-color: rgb(243, 233, 214); */
     text-align: left;
 }
 
@@ -126,7 +137,6 @@ form h2{
 }
 
 .post-page-content{
-    /* background-color: rgb(248, 243, 233); */
     padding: 10px;
     text-align: left;
 
@@ -134,9 +144,9 @@ form h2{
 
 .image-post-page{
     object-fit: cover;
-    /* object-position: center center;
-     */
-    width: 90%;
+    object-position: center center;
+    width: 100%;
+    align-content: center;
 }
 
 div.edit{
