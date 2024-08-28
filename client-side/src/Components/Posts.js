@@ -11,12 +11,12 @@ export default function Posts({_id,title, summary, file, content,createdAt,autho
     return(
         <div className="post">
           <div className='image'>
-            <Link to={'/post/${_id}'}>
+            <Link to={`/post/${_id}`}>
             <img src={file}/>
             </Link>
           </div>
           <div className="texts">
-          <Link to={'/post/${_id}'}>
+          <Link to={`/post/${_id}`}>
           <h2>{title}</h2>
           </Link>
           <p className="info">

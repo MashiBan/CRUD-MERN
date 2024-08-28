@@ -5,14 +5,14 @@ const app = express();
 const port = 4000;
 const cors = require('cors');
 const Post = require('./models/Post');
-const { default: mongoose } = require("mongoose");
+const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
 const secret = 'kvhlsavlafjafvlasvb';
 
 const salt = bcrypt.genSaltSync(10);
 
-app.use(cors({credentials: true, origin: 'http://localhost:3000'}));
+app.use(cors({ credentials: true, origin: 'http://localhost:3000' }));
 app.use(express.json());
 app.use(cookieParser());
 
@@ -73,31 +73,55 @@ app.get('/profile', (req, res) => {
 });
 
 app.post('/logout', (req, res) => {
-    res.cookie('token', '').json('ok');
+    res.cookie('token', '', { expires: new Date(0) }).json('ok');
 });
 
-app.post('/post', async(req, res) => {
+app.post('/post', async (req, res) => {
     const { token } = req.cookies;
     jwt.verify(token, secret, {}, async (err, info) => {
-        if (err) throw err;
+        if (err) return res.status(403).json({ error: 'Invalid token' });
         const { title, summary, content, file } = req.body;
-        const postDoc = await Post.create({
-            title,
-            summary,
-            content,
-            file,
-            author: info.id
-        });
-        res.json(postDoc);
+        try {
+            const postDoc = await Post.create({
+                title,
+                summary,
+                content,
+                file,
+                author: info.id
+            });
+            res.json(postDoc);
+        } catch (e) {
+            res.status(400).json(e);
+        }
     });
 });
 
 app.get('/post', async (req, res) => {
-    res.json(await Post.find()
-        .populate('author', ['username'])
-        .sort({ createdAt: -1 })
-        .limit(30)
-    );
+    try {
+        const posts = await Post.find()
+            .populate('author', ['username'])
+            .sort({ createdAt: -1 })
+            .limit(30);
+        res.json(posts);
+    } catch (e) {
+        res.status(500).json(e);
+    }
+});
+
+app.get('/post/:id', async (req, res) => {
+    const { id } = req.params;
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).json({ error: 'Invalid post ID format' });
+    }
+    try {
+        const postDoc = await Post.findById(id).populate('author', ['username']);
+        if (!postDoc) {
+            return res.status(404).json({ error: 'Post not found' });
+        }
+        res.json(postDoc);
+    } catch (e) {
+        res.status(500).json(e);
+    }
 });
 
 app.listen(port, () => {
