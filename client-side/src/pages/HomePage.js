@@ -5,18 +5,22 @@ export default function HomePage() {
     const [posts, setPosts] = useState([]);
 
     useEffect(() => {
+        // Fetch posts from the API
         fetch('http://localhost:4000/post')
             .then(response => response.json())
-            .then(posts => {
-                setPosts(posts);
-            });
+            .then(data => setPosts(data))
+            .catch(error => console.error('Error fetching posts:', error));
     }, []);
 
     return (
         <>
-            {posts.length > 0 && posts.map(post => (
-                <Posts key={post._id} {...post} />
-            ))}
+            {posts.length > 0 ? (
+                posts.map(post => (
+                    <Posts key={post._id} {...post} />
+                ))
+            ) : (
+                <p>No posts available</p>
+            )}
         </>
     );
 }

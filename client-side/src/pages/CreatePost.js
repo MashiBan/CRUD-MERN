@@ -1,6 +1,4 @@
 import { useState } from "react";
-import ReactQuill from "react-quill";
-import 'react-quill/dist/quill.snow.css';
 import { Navigate } from "react-router-dom";
 import Editor from "../Components/Editor";
 
@@ -31,23 +29,26 @@ export default function CreatePost() {
 
         if (response.ok) {
             setRedirect(true);
+        } else {
+            // Optionally handle errors
+            console.error('Failed to create post');
         }
     }
 
     if (redirect) {
-        return <Navigate to={'/'} />;
+        return <Navigate to="/" />;
     }
 
     return (
         <form onSubmit={createNewPost}>
             <input
-                type="title"
+                type="text"
                 placeholder="Title"
                 value={title}
                 onChange={e => setTitle(e.target.value)}
             />
             <input
-                type="summary"
+                type="text"
                 placeholder="Summary"
                 value={summary}
                 onChange={e => setSummary(e.target.value)}
@@ -58,7 +59,10 @@ export default function CreatePost() {
                 value={file}
                 onChange={e => setFile(e.target.value)}
             />
-            <Editor onChange={setContent} value={content}/>
+            <Editor
+                onChange={setContent}
+                value={content}
+            />
             <button type="submit">Create Post</button>
         </form>
     );

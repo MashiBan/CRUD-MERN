@@ -115,8 +115,8 @@ form h2{
 }
 
 .post-page{
-    padding: 10px;
-    margin-top: 3rem;
+    /* padding: 10px; */
+    /* margin-top: 3rem; */
     /* background-color: rgb(243, 233, 214); */
     text-align: left;
 }
@@ -128,15 +128,15 @@ form h2{
 .post-page-content{
     /* background-color: rgb(248, 243, 233); */
     padding: 10px;
-    margin-top: 0.5rem;
     text-align: left;
 
 }
 
 .image-post-page{
     object-fit: cover;
-    object-position: center center;
-    width: 100%;
+    /* object-position: center center;
+     */
+    width: 90%;
 }
 
 div.edit{
@@ -144,10 +144,25 @@ div.edit{
     margin-top: 6rem;
 }
 
-a.edit-btn{
+.edit-btn{
     background-color: #323131;
     color: #fff;
     border-radius: 2px;
     padding: 8px;
+    margin: 10px;
+    text-decoration: none;
+}
+
+.btn{
+    text-decoration: none;
+    color: inherit;
+}
+
+.delete-btn{
+    background-color: #323131;
+    color: #fff;
+    border-radius: 2px;
+    padding: 8px;
+    margin: 10px;
     text-decoration: none;
 }

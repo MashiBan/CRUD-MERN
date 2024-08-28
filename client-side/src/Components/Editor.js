@@ -18,15 +18,13 @@ const formats = [
     'link', 'image'
 ];
 
-
-export default function Editor({value, onChange}){
-    
-    return(     
+export default function Editor({ value, onChange }) {
+    return (
         <ReactQuill
-        value={value}
-        modules={modules}
-        formats={formats}
-        onChange={newValue => onChange(newValue)}
-    />
+            value={value}
+            modules={modules}
+            formats={formats}
+            onChange={newValue => onChange(newValue)}
+        />
     );
 }
