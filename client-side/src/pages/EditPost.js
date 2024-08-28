@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import { Navigate, useParams } from "react-router-dom";
 import Editor from "../Components/Editor";
 
+// Use environment variable for API base URL
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 export default function EditPost() {
     const { id } = useParams();
     const [title, setTitle] = useState('');
@@ -11,20 +14,25 @@ export default function EditPost() {
     const [redirect, setRedirect] = useState(false);
 
     useEffect(() => {
-        fetch(`http://localhost:4000/post/${id}`)
-            .then(response => response.json())
-            .then(postInfo => {
+        const fetchPost = async () => {
+            try {
+                const response = await fetch(`${API_BASE_URL}/post/${id}`);
+                if (!response.ok) throw new Error('Network response was not ok');
+                const postInfo = await response.json();
                 setTitle(postInfo.title);
                 setContent(postInfo.content);
                 setSummary(postInfo.summary);
                 setFile(postInfo.file);
-            })
-            .catch(error => console.error('Error fetching post:', error));
+            } catch (error) {
+                console.error('Error fetching post:', error);
+            }
+        };
+        fetchPost();
     }, [id]);
 
-    async function updatePost(e) {
+    const updatePost = async (e) => {
         e.preventDefault();
-        
+
         const data = {
             title,
             summary,
@@ -34,7 +42,7 @@ export default function EditPost() {
         };
 
         try {
-            const response = await fetch('http://localhost:4000/post', {
+            const response = await fetch(`${API_BASE_URL}/post`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
@@ -52,7 +60,7 @@ export default function EditPost() {
         } catch (error) {
             console.error('Error updating post:', error);
         }
-    }
+    };
 
     if (redirect) {
         return <Navigate to={`/post/${id}`} />;
@@ -64,19 +72,19 @@ export default function EditPost() {
                 type="text"
                 placeholder="Title"
                 value={title}
-                onChange={e => setTitle(e.target.value)}
+                onChange={(e) => setTitle(e.target.value)}
             />
             <input
                 type="text"
                 placeholder="Summary"
                 value={summary}
-                onChange={e => setSummary(e.target.value)}
+                onChange={(e) => setSummary(e.target.value)}
             />
             <input
                 type="text"
                 placeholder="Image Link"
                 value={file}
-                onChange={e => setFile(e.target.value)}
+                onChange={(e) => setFile(e.target.value)}
             />
             <Editor
                 onChange={setContent}

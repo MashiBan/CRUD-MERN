@@ -2,6 +2,9 @@ import { useState } from "react";
 import { Navigate } from "react-router-dom";
 import Editor from "../Components/Editor";
 
+// Use environment variable for API base URL
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 export default function CreatePost() {
     const [title, setTitle] = useState('');
     const [summary, setSummary] = useState('');
@@ -18,20 +21,24 @@ export default function CreatePost() {
             file
         };
 
-        const response = await fetch('http://localhost:4000/post', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(postData),
-            credentials: 'include',
-        });
+        try {
+            const response = await fetch(`${API_BASE_URL}/post`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(postData),
+                credentials: 'include',
+            });
 
-        if (response.ok) {
-            setRedirect(true);
-        } else {
-            // Optionally handle errors
-            console.error('Failed to create post');
+            if (response.ok) {
+                setRedirect(true);
+            } else {
+                // Optionally handle errors
+                console.error('Failed to create post');
+            }
+        } catch (error) {
+            console.error('Error creating post:', error);
         }
     }
 

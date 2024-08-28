@@ -52,7 +52,7 @@ div.post{
     grid-template-columns: 1fr;
     /* grid-template-columns: 0.9fr 1.1fr; */
     gap: 16px;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
     border-bottom: 2px solid black;
     padding: 2px;
 }
