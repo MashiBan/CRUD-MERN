@@ -16,7 +16,15 @@ const secret = process.env.JWT_SECRET;
 const mongoURI = process.env.MONGO_URI;
 const salt = bcrypt.genSaltSync(10);
 
-app.use(cors({ credentials: true, origin: 'https://whispertales1.vercel.app' }));
+const allowedOrigins = process.env.NODE_ENV === 'production' 
+    ? 'https://crud-mern-2caq.onrender.com' 
+    : 'http://localhost:3000';
+
+app.use(cors({
+    credentials: true,
+    origin: allowedOrigins
+}));
+
 
 app.use(express.json());
 app.use(cookieParser());
