@@ -1,52 +1,41 @@
 import { useState } from "react";
 
-// Use environment variable for API base URL
-import {API_BASE_URL} from '../config.js';
-
-export default function RegisterPage() {
+export default function RegisterPage(){
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
-    async function register(e) {
+    async function register(e){
         e.preventDefault();
-        
-        try {
-            const response = await fetch(`${API_BASE_URL}/register`, {
-                method: 'POST',
-                body: JSON.stringify({ username, password }),
-                headers: { 'Content-Type': 'application/json' },
-            });
-
-            if (response.ok) {
-                alert('Registration successful');
-            } else {
-                alert('Registration failed');
-            }
-        } catch (error) {
-            console.error('Error during registration:', error);
-            alert('Registration failed');
+        await fetch('https://crud-mern-2caq.onrender.com/register', {
+            method: 'POST',
+            body: JSON.stringify({username, password}),
+            headers: {'Content-Type' : 'application/json'},
+        });
+        if(Response.ok === 200){
+            alert('registration successful')
+        }else{
+            alert('registration failed')
         }
     }
-
-    return (
+    return(
         <div className="form">
             <p>Welcome</p>
-            <form className="register" onSubmit={register}>
+            <form action="" className="register" onSubmit={register}>
                 <h2>Register</h2>
                 <input 
                     type="text" 
-                    placeholder="Username" 
+                    placeholder="username" 
                     value={username} 
                     onChange={e => setUsername(e.target.value)}
-                />
+                    ></input>
                 <input 
                     type="password" 
-                    placeholder="Password"
+                    placeholder="password"
                     value={password} 
                     onChange={e => setPassword(e.target.value)}
-                />
-                <button type="submit">Register</button>
+                ></input>
+                <button>Register</button>
             </form>
         </div>
-    );
+    )
 }

@@ -2,9 +2,6 @@ import { useState } from "react";
 import { Navigate } from "react-router-dom";
 import Editor from "../Components/Editor";
 
-// Use environment variable for API base URL
-import {API_BASE_URL} from '../config.js';
-
 export default function CreatePost() {
     const [title, setTitle] = useState('');
     const [summary, setSummary] = useState('');
@@ -21,24 +18,20 @@ export default function CreatePost() {
             file
         };
 
-        try {
-            const response = await fetch(`${API_BASE_URL}/post`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(postData),
-                credentials: 'include',
-            });
+        const response = await fetch('https://crud-mern-2caq.onrender.com/post', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(postData),
+            credentials: 'include',
+        });
 
-            if (response.ok) {
-                setRedirect(true);
-            } else {
-                // Optionally handle errors
-                console.error('Failed to create post');
-            }
-        } catch (error) {
-            console.error('Error creating post:', error);
+        if (response.ok) {
+            setRedirect(true);
+        } else {
+            // Optionally handle errors
+            console.error('Failed to create post');
         }
     }
 
