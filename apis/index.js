@@ -1,4 +1,3 @@
-require('dotenv').config(); 
 const express = require("express");
 const User = require('./models/User');
 const bcrypt = require('bcrypt');
@@ -11,21 +10,18 @@ const cors = require('cors');
 const app = express();
 const port = 4000;
 
-// Retrieve secret and MongoDB URI from environment variables
+
 const secret = process.env.JWT_SECRET;
 const mongoURI = process.env.MONGO_URI;
 const salt = bcrypt.genSaltSync(10);
 
 
 app.use(cors({credentials:true, origin:'https://whispertales1.vercel.app'}));
-
-
-
 app.use(express.json());
 app.use(cookieParser());
 
 // Mongoose connection with error handling
-mongoose.connect(mongoURI)
+mongoose.connect('mongodb+srv://frypan:xNKiFsdpMXj4YPcg@cluster0.vlixu.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
     .then(() => {
         console.log('Connected to MongoDB');
     })
