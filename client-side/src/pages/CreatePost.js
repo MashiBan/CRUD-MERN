@@ -21,25 +21,32 @@ export default function CreatePost() {
             content,
             file
         };
-
-        const response = await fetch('https://crud-mern-2caq.onrender.com/post', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(postData),
-            credentials: 'include',
-        });
-
-        if (response.ok) {
-            setRedirect(true);
+    
+        try {
+            const response = await fetch('https://crud-mern-2caq.onrender.com/post', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(postData),
+                credentials: 'include',
+            });
+    
+            if (response.ok) {
+                setRedirect(true);
+            } else {
+                const errorData = await response.json();
+                console.error('Error:', response.status, errorData);
+            }
+        } catch (error) {
+            console.error('Network error:', error);
         }
     }
-
+    
     if (redirect) {
         return <Navigate to={'/'} />;
     }
-
+    
     return (
         <form onSubmit={createNewPost}>
             <input
