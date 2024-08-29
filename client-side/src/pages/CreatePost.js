@@ -11,19 +11,17 @@ export default function CreatePost() {
 
     async function createNewPost(e) {
         e.preventDefault();
-        const postData = {
-            title,
-            summary,
-            content,
-            file
-        };
-
+        const data = new FormData();
+        data.set('title', title);
+        data.set('summary', summary);
+        data.set('content', content);
+        data.set('id', id);
         const response = await fetch('https://crud-mern-2caq.onrender.com/post', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(postData),
+            body: data,
             credentials: 'include',
         });
 

@@ -38,8 +38,7 @@ export default function EditPost(){
             credentials: 'include',
             
         });
-        req.json({body});
-        console.log(response);
+        
         if(response.ok){
             setRedirect(true);
         }
