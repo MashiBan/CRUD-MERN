@@ -34,10 +34,12 @@ export default function EditPost(){
 
         const response = await fetch('https://crud-mern-2caq.onrender.com/post', {
             method: 'PUT',
-            body: data,
-            credentials: 'include'
+            body: JSON.stringify(data),
+            credentials: 'include',
+            
         });
-
+        req.json({body});
+        console.log(response);
         if(response.ok){
             setRedirect(true);
         }
