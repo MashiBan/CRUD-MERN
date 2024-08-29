@@ -15,13 +15,13 @@ export default function CreatePost() {
         data.set('title', title);
         data.set('summary', summary);
         data.set('content', content);
-        data.set('id', id);
+       
         const response = await fetch('https://crud-mern-2caq.onrender.com/post', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: data,
+            body:data,
             credentials: 'include',
         });
 
