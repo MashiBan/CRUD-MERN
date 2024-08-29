@@ -1,6 +1,10 @@
 import { useState } from "react";
+import ReactQuill from "react-quill";
+import 'react-quill/dist/quill.snow.css';
 import { Navigate } from "react-router-dom";
 import Editor from "../Components/Editor";
+
+
 
 export default function CreatePost() {
     const [title, setTitle] = useState('');
@@ -11,42 +15,41 @@ export default function CreatePost() {
 
     async function createNewPost(e) {
         e.preventDefault();
-        const data = new FormData();
-        data.set('title', title);
-        data.set('summary', summary);
-        data.set('content', content);
-       
+        const postData = {
+            title,
+            summary,
+            content,
+            file
+        };
+
         const response = await fetch('https://crud-mern-2caq.onrender.com/post', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body:JSON.stringify(data),
+            body: JSON.stringify(postData),
             credentials: 'include',
         });
 
         if (response.ok) {
             setRedirect(true);
-        } else {
-            // Optionally handle errors
-            console.error('Failed to create post');
         }
     }
 
     if (redirect) {
-        return <Navigate to="/" />;
+        return <Navigate to={'/'} />;
     }
 
     return (
         <form onSubmit={createNewPost}>
             <input
-                type="text"
+                type="title"
                 placeholder="Title"
                 value={title}
                 onChange={e => setTitle(e.target.value)}
             />
             <input
-                type="text"
+                type="summary"
                 placeholder="Summary"
                 value={summary}
                 onChange={e => setSummary(e.target.value)}
@@ -57,10 +60,7 @@ export default function CreatePost() {
                 value={file}
                 onChange={e => setFile(e.target.value)}
             />
-            <Editor
-                onChange={setContent}
-                value={content}
-            />
+            <Editor onChange={setContent} value={content}/>
             <button type="submit">Create Post</button>
         </form>
     );
