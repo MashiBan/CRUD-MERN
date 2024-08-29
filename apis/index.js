@@ -17,10 +17,7 @@ const mongoURI = process.env.MONGO_URI;
 const salt = bcrypt.genSaltSync(10);
 
 
-app.use(cors({
-    credentials: true,
-    origin: ['http://localhost:3000', 'https://whispertales1.vercel.app/']
-}));
+app.use(cors());
 
 
 
