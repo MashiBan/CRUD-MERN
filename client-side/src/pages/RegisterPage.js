@@ -6,12 +6,12 @@ export default function RegisterPage(){
 
     async function register(e){
         e.preventDefault();
-        await fetch('https://crud-mern-2caq.onrender.com/register', {
+        const response = await fetch('https://crud-mern-2caq.onrender.com/register', {
             method: 'POST',
             body: JSON.stringify({username, password}),
             headers: {'Content-Type' : 'application/json'},
         });
-        if(Response.ok === 400){
+        if(response.ok === 400){
             alert('registration failed')
            
         }else{
