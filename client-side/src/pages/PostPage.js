@@ -4,7 +4,8 @@ import ReactTimeAgo from 'react-time-ago';
 import { UserContext } from '../Context/userContext';
 
 // Use environment variable for API base URL
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+// const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+import {API_BASE_URL} from '../config.js';
 
 export default function PostPage() {
     // State to hold post information

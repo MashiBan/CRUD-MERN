@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 // Use environment variable for API base URL
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+import {API_BASE_URL} from '../config.js';
 
 export default function RegisterPage() {
     const [username, setUsername] = useState('');

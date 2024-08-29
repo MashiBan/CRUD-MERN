@@ -3,7 +3,7 @@ import { Navigate } from "react-router-dom";
 import Editor from "../Components/Editor";
 
 // Use environment variable for API base URL
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+import {API_BASE_URL} from '../config.js';
 
 export default function CreatePost() {
     const [title, setTitle] = useState('');

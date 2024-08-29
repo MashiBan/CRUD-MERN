@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Posts from "../Components/Posts";
 
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+import {API_BASE_URL} from '../config.js';
 
 export default function HomePage() {
     const [posts, setPosts] = useState([]);

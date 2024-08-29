@@ -1,9 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { UserContext } from "../Context/userContext";
-
-// Use environment variable for API base URL
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+import { API_BASE_URL } from "../config";
 
 export default function Header() {
     const { setUserInfo, userInfo } = useContext(UserContext);
@@ -12,7 +10,12 @@ export default function Header() {
         fetch(`${API_BASE_URL}/profile`, {
             credentials: 'include',
         })
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
         .then(userInfo => {
             setUserInfo(userInfo);
         })
