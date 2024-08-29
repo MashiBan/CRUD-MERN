@@ -21,7 +21,7 @@ export default function CreatePost() {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body:data,
+            body:JSON.stringify(data),
             credentials: 'include',
         });
 
