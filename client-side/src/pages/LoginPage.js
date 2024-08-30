@@ -18,8 +18,17 @@ export default function LoginPage() {
         });
 
         if (response.ok) {
-            response.json().then(userInfo => {
+            response.json().then(data => {
+                // Assuming the response contains a token and userInfo
+                const { token, userInfo } = data;
+
+                // Store the token in a cookie
+                document.cookie = `token=${token}; path=/; SameSite=Lax`;
+
+                // Set the user information in context
                 setUserInfo(userInfo);
+
+                // Redirect the user after successful login
                 setRedirect(true);
             });
         } else {

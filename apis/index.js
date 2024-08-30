@@ -46,10 +46,15 @@ app.post('/login', async (req, res) => {
     }
     const correctPass = bcrypt.compareSync(password, userDoc.password);
     if (correctPass) {
-        // logged in
+        // Logged in
         jwt.sign({ username, id: userDoc._id }, secret, {}, (err, token) => {
             if (err) throw err;
-            res.cookie('token', token).json({
+            res.cookie('token', token, {
+                httpOnly: true,
+                secure: true,
+                sameSite: 'lax',
+                path: '/',
+            }).json({
                 id: userDoc._id,
                 username
             });
@@ -104,24 +109,19 @@ app.put('/post', async (req, res) => {
         const { id, title, summary, content, file } = req.body;
 
         try {
-            
             const postDoc = await Post.findById(id);
             if (!postDoc) {
                 return res.status(404).json({ error: 'Post not found' });
             }
 
-            
             if (postDoc.author.equals(info.id)) {
-                
                 postDoc.title = title;
                 postDoc.summary = summary;
                 postDoc.content = content;
                 postDoc.file = file;
-                
-                
+
                 await postDoc.save();
 
-                
                 res.json(postDoc);
             } else {
                 res.status(403).json({ error: 'Access denied' });
@@ -131,7 +131,6 @@ app.put('/post', async (req, res) => {
         }
     });
 });
-
 
 app.get('/post', async (req, res) => {
     try {
