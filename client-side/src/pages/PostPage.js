@@ -72,7 +72,7 @@ export default function PostPage() {
                 </h6>
                 
                 
-                {userInfo.id === postInfo.author._id && (
+                {JSON.stringify(userInfo.id) === JSON.stringify(postInfo.author._id) && (
                     <div className="edit">
                        <button className="edit-btn">
                            <Link className="edit-btn" to={`/edit/${postInfo._id}`}>Edit this post</Link>
